@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cecinas Don Coloma de Chillán — Sabor ahumado</title>
+<meta name="description" content="Longanizas y cecinas artesanales ahumadas de Chillán. Pide por WhatsApp." />
+
+<!-- ============================================================= -->
+<!--  ⚙️  ZONA FÁCIL DE EDITAR (igual que el otro diseño)          -->
+<!-- ============================================================= -->
+<script>
+const CONFIG = {
+  marca: "Cecinas Don Coloma de Chillán",
+  eslogan: "El auténtico sabor ahumado de Chillán, directo a tu mesa.",
+  whatsapp: "56912345678",          // ⚠️ CAMBIA por tu número (56 + 9 + número)
+  telefono: "+56912345678",
+  moneda: "$",
+  decimales: 0,
+  instagram: "https://www.instagram.com/cecinasdoncolomadechillan/",
+  facebook: "",
+  productos: [
+    { id: 1, nombre: "Longaniza Ahumada Tradicional (1 kilo)", precio: 6500, emoji: "🌭", desc: "La clásica de Chillán, ahumada a leña." },
+    { id: 2, nombre: "Longaniza con Merkén (1 kilo)", precio: 6800, emoji: "🌶️", desc: "Con el toque picante del merkén." },
+    { id: 3, nombre: "Longaniza Ahumada (1/2 kilo)", precio: 3400, emoji: "🌭", desc: "Mismo sabor, en formato medio kilo." },
+    { id: 4, nombre: "Chorizo Parrillero (1 kilo)", precio: 6500, emoji: "🔥", desc: "Ideal para el asado del fin de semana." },
+    { id: 5, nombre: "Arrollado Huaso (1 kilo)", precio: 7900, emoji: "🍖", desc: "Receta tradicional, aliñado y cocido." },
+    { id: 6, nombre: "Prietas (1 kilo)", precio: 5500, emoji: "🩸", desc: "Suaves y bien condimentadas." },
+    { id: 7, nombre: "Queso de Cabeza (1/2 kilo)", precio: 4500, emoji: "🧆", desc: "Hecho a la antigua, lleno de sabor." },
+    { id: 8, nombre: "Costillar Ahumado (1 kilo)", precio: 9500, emoji: "🥩", desc: "Ahumado lento, listo para servir." },
+  ],
+};
+</script>
+<!-- ============================================================= -->
+
+<style>
+  :root{
+    --fondo:#15110d;        /* casi negro cálido */
+    --fondo2:#1f1813;
+    --carta:#26201a;
+    --borde:#3a2f26;
+    --oro:#e0a536;          /* dorado */
+    --oro-osc:#b9831f;
+    --ember:#e2541f;        /* ascua */
+    --crema:#f4e9d8;
+    --suave:#b9aa97;
+    --wa:#25D366;
+    --radio:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+    background:var(--fondo);color:var(--crema);line-height:1.6;padding-bottom:78px;
+  }
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.15;letter-spacing:.3px}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1120px,92%);margin-inline:auto}
+
+  /* ---------- NAV ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(21,17,13,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--borde)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+  .logo .dot{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--ember),var(--oro));display:grid;place-items:center;font-size:1.1rem}
+  .logo b{color:var(--oro)}
+  .menu{display:flex;gap:26px}
+  .menu a{font-weight:600;color:var(--crema);opacity:.85;transition:.2s}
+  .menu a:hover{opacity:1;color:var(--oro)}
+  .menu-toggle{display:none;background:none;border:none;color:var(--crema);font-size:1.6rem;cursor:pointer}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;overflow:hidden;text-align:center;padding:90px 0 100px;
+    background:radial-gradient(900px 500px at 50% -20%, rgba(226,84,31,.35), transparent 60%),
+               radial-gradient(700px 400px at 80% 120%, rgba(224,165,54,.18), transparent 60%),
+               var(--fondo);
+  }
+  .hero .kicker{display:inline-flex;align-items:center;gap:8px;color:var(--oro);font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:.78rem;margin-bottom:18px}
+  .hero h1{font-size:clamp(2.4rem,6vw,4.2rem);margin-bottom:16px}
+  .hero h1 em{color:var(--oro);font-style:normal}
+  .hero p{color:var(--suave);font-size:1.15rem;max-width:560px;margin:0 auto 30px}
+  .acciones{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;font-weight:800;cursor:pointer;border:none;font-size:1rem;transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-oro{background:linear-gradient(135deg,var(--oro),var(--oro-osc));color:#1a1208;box-shadow:0 12px 30px rgba(224,165,54,.3)}
+  .btn-wa{background:var(--wa);color:#04210f;box-shadow:0 12px 30px rgba(37,211,102,.25)}
+  .btn-line{background:transparent;color:var(--crema);border:1.5px solid var(--borde)}
+  .marquesina{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;margin-top:46px;color:var(--suave);font-weight:600}
+  .marquesina b{color:var(--crema)}
+
+  /* ---------- SECCIONES ---------- */
+  section{padding:70px 0}
+  .cab{text-align:center;margin-bottom:46px}
+  .cab .kicker{color:var(--ember);font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:.78rem}
+  .cab h2{font-size:clamp(1.9rem,4vw,2.7rem);margin-top:8px}
+  .cab p{color:var(--suave);margin-top:8px}
+
+  /* ---------- PRODUCTOS ---------- */
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(270px,100%),1fr));gap:20px}
+  .plato{position:relative;background:var(--carta);border:1px solid var(--borde);border-radius:var(--radio);padding:20px;display:flex;gap:16px;align-items:center;transition:.2s}
+  .plato:hover{border-color:var(--oro);transform:translateY(-3px);box-shadow:0 16px 36px rgba(0,0,0,.4)}
+  .plato .pic{flex-shrink:0;width:74px;height:74px;border-radius:14px;display:grid;place-items:center;font-size:2.4rem;
+    background:radial-gradient(circle at 30% 30%, #3a2c1f, #241b14);border:1px solid var(--borde);overflow:hidden}
+  .plato .pic img{width:100%;height:100%;object-fit:cover}
+  .plato .det{flex:1;min-width:0}
+  .plato h3{font-size:1.1rem;margin-bottom:3px}
+  .plato .d{color:var(--suave);font-size:.86rem;margin-bottom:8px}
+  .plato .fila{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .plato .precio{color:var(--oro);font-weight:800;font-size:1.2rem;font-family:Georgia,serif}
+  .plato .add{background:var(--ember);color:#fff;border:none;width:40px;height:40px;border-radius:11px;font-size:1.3rem;cursor:pointer;font-weight:800;line-height:1;transition:.2s;flex-shrink:0}
+  .plato .add:hover{background:#c2410c}
+
+  /* ---------- PASOS ---------- */
+  .pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .paso{background:var(--fondo2);border:1px solid var(--borde);border-radius:var(--radio);padding:28px;text-align:center}
+  .paso .n{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--ember),var(--oro));color:#1a1208;font-weight:900;display:grid;place-items:center;margin:0 auto 14px;font-size:1.25rem}
+  .paso h3{margin-bottom:6px}
+  .paso p{color:var(--suave);font-size:.93rem}
+
+  /* ---------- REGISTRO ---------- */
+  .panel{max-width:640px;margin-inline:auto;background:var(--carta);border:1px solid var(--borde);border-radius:22px;padding:38px}
+  .campo{margin-bottom:15px}
+  .campo label{display:block;font-weight:700;margin-bottom:6px;font-size:.9rem;color:var(--crema)}
+  .campo input,.campo textarea,.campo select{width:100%;padding:13px 14px;border-radius:11px;border:1.5px solid var(--borde);background:#1b1510;color:var(--crema);font-size:1rem;font-family:inherit;transition:.2s}
+  .campo input::placeholder,.campo textarea::placeholder{color:#7a6d5d}
+  .campo input:focus,.campo textarea:focus,.campo select:focus{outline:none;border-color:var(--oro);box-shadow:0 0 0 3px rgba(224,165,54,.18)}
+  .dos{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .nota{color:var(--suave);font-size:.82rem;text-align:center;margin-top:10px}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--borde);padding:46px 0 26px;background:var(--fondo2)}
+  .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px;margin-bottom:26px}
+  footer h4{color:var(--oro);margin-bottom:12px;font-size:.95rem;text-transform:uppercase;letter-spacing:1px;font-family:inherit}
+  footer a{color:var(--suave);display:block;margin-bottom:7px;transition:.2s}
+  footer a:hover{color:var(--crema)}
+  .copy{text-align:center;border-top:1px solid var(--borde);padding-top:18px;color:var(--suave);font-size:.83rem}
+
+  /* ---------- FLOTANTES ---------- */
+  .flot{position:fixed;right:16px;bottom:90px;z-index:60;display:flex;flex-direction:column;gap:12px}
+  .flot a{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .15s}
+  .flot a:hover{transform:scale(1.1)}
+  .f-wa{background:var(--wa)}
+  .f-call{background:var(--oro);color:#1a1208}
+
+  /* ---------- BARRA DE PEDIDO FIJA ---------- */
+  .barra{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(31,24,19,.97);backdrop-filter:blur(10px);border-top:1px solid var(--borde);padding:12px 0}
+  .barra .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .barra .resumen{display:flex;align-items:center;gap:14px}
+  .barra .cesto{position:relative;font-size:1.7rem}
+  .barra .cesto .num{position:absolute;top:-6px;right:-10px;background:var(--ember);color:#fff;min-width:20px;height:20px;border-radius:50%;font-size:.72rem;display:grid;place-items:center;font-weight:800;padding:0 4px}
+  .barra .tt{font-size:.8rem;color:var(--suave)}
+  .barra .tt b{display:block;color:var(--oro);font-size:1.3rem;font-family:Georgia,serif}
+  .barra .btn{padding:13px 22px}
+  .barra .ver{background:transparent;border:1.5px solid var(--borde);color:var(--crema);border-radius:999px;padding:11px 18px;font-weight:700;cursor:pointer}
+
+  /* ---------- MODAL PEDIDO ---------- */
+  .veil{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;opacity:0;visibility:hidden;transition:.25s}
+  .veil.on{opacity:1;visibility:visible}
+  .modal{position:fixed;z-index:100;left:50%;top:50%;transform:translate(-50%,-46%) scale(.96);width:min(460px,94%);max-height:84vh;
+    background:var(--carta);border:1px solid var(--borde);border-radius:20px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:.25s;overflow:hidden}
+  .modal.on{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+  .modal .top{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid var(--borde)}
+  .modal .top h3{color:var(--oro)}
+  .modal .x{background:none;border:none;color:var(--suave);font-size:1.7rem;cursor:pointer}
+  .lista{padding:14px 20px;overflow-y:auto;flex:1}
+  .vacio{text-align:center;color:var(--suave);padding:30px 0}
+  .it{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--borde)}
+  .it .em{font-size:1.6rem;width:42px;height:42px;display:grid;place-items:center;background:#1b1510;border-radius:10px;border:1px solid var(--borde);overflow:hidden}
+  .it .em img{width:100%;height:100%;object-fit:cover}
+  .it .inf{flex:1;min-width:0}
+  .it .inf b{display:block;font-size:.92rem}
+  .it .inf small{color:var(--oro)}
+  .ctrl{display:flex;align-items:center;gap:7px}
+  .ctrl button{width:27px;height:27px;border-radius:8px;border:1px solid var(--borde);background:#1b1510;color:var(--crema);cursor:pointer;font-weight:800}
+  .ctrl span{min-width:20px;text-align:center;font-weight:700}
+  .del{background:none;border:none;color:var(--ember);cursor:pointer;font-size:1.05rem}
+  .modal .bot{padding:18px 20px;border-top:1px solid var(--borde)}
+  .modal .tot{display:flex;justify-content:space-between;font-size:1.25rem;font-weight:800;margin-bottom:14px}
+  .modal .tot span{color:var(--oro)}
+  .modal .btn-wa{width:100%;justify-content:center}
+  .mini{color:var(--suave);font-size:.78rem;text-align:center;margin-top:10px}
+
+  @media(max-width:760px){
+    .menu{position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--fondo2);padding:16px;gap:14px;border-bottom:1px solid var(--borde);display:none}
+    .menu.abierto{display:flex}
+    .menu-toggle{display:block}
+    .dos{grid-template-columns:1fr}
+    .fgrid{grid-template-columns:1fr;text-align:center}
+    .fgrid a{display:inline-block;margin:0 8px 7px}
+    .barra .ver{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header>
+  <div class="wrap nav">
+    <a href="#inicio" class="logo"><span class="dot">🔥</span><b id="marcaNav"></b></a>
+    <nav class="menu" id="menu">
+      <a href="#productos">Productos</a>
+      <a href="#como">Cómo pedir</a>
+      <a href="#registro">Regístrate</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="menu-toggle" onclick="document.getElementById('menu').classList.toggle('abierto')">☰</button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <span class="kicker">🔥 Ahumadas a leña · Chillán</span>
+    <h1>El sabor que <em>todos piden</em></h1>
+    <p id="heroEslogan"></p>
+    <div class="acciones">
+      <a href="#productos" class="btn btn-oro">🛒 Hacer mi pedido</a>
+      <a id="heroWa" class="btn btn-wa" target="_blank">💬 WhatsApp</a>
+    </div>
+    <div class="marquesina">
+      <span>🥩 <b>100%</b> artesanal</span>
+      <span>🚚 Despacho en <b>Chillán</b></span>
+      <span>⭐ Sabor <b>tradicional</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTOS ============ -->
+<section id="productos">
+  <div class="wrap">
+    <div class="cab">
+      <div class="kicker">Nuestra carta</div>
+      <h2>Productos frescos del día</h2>
+      <p>Toca el ➕ para sumar al pedido. Tu nota se arma sola.</p>
+    </div>
+    <div class="menu-grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- ============ CÓMO PEDIR ============ -->
+<section id="como" style="background:var(--fondo2)">
+  <div class="wrap">
+    <div class="cab"><div class="kicker">Fácil y rápido</div><h2>¿Cómo pedir?</h2></div>
+    <div class="pasos">
+      <div class="paso"><div class="n">1</div><h3>Arma tu pedido</h3><p>Agrega productos y cantidades a tu cesto.</p></div>
+      <div class="paso"><div class="n">2</div><h3>Envía por WhatsApp</h3><p>Tu nota de venta con el total se genera automáticamente.</p></div>
+      <div class="paso"><div class="n">3</div><h3>Confirma</h3><p>El vendedor ajusta valores si hace falta y coordina la entrega.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REGISTRO ============ -->
+<section id="registro">
+  <div class="wrap">
+    <div class="cab"><div class="kicker">Únete</div><h2>Regístrate y recibe ofertas</h2><p>Nuevos productos, promos y pedidos personalizados.</p></div>
+    <div class="panel">
+      <form id="formRegistro" onsubmit="enviarRegistro(event)">
+        <div class="dos">
+          <div class="campo"><label>Nombre completo *</label><input name="nombre" required placeholder="Tu nombre" /></div>
+          <div class="campo"><label>Teléfono / WhatsApp *</label><input name="telefono" required placeholder="9 xxxx xxxx" /></div>
+        </div>
+        <div class="campo"><label>Comuna / Ciudad</label><input name="ciudad" placeholder="Chillán" /></div>
+        <div class="campo"><label>¿Qué te interesa?</label>
+          <select name="interes">
+            <option>Comprar productos</option>
+            <option>Pedido al por mayor</option>
+            <option>Ser distribuidor / revender</option>
+            <option>Solo recibir novedades</option>
+          </select>
+        </div>
+        <div class="campo"><label>Mensaje (opcional)</label><textarea name="mensaje" rows="3" placeholder="Cuéntanos qué necesitas..."></textarea></div>
+        <button type="submit" class="btn btn-wa" style="width:100%;justify-content:center">📩 Enviar por WhatsApp</button>
+        <p class="nota">Se abrirá WhatsApp con tus datos listos. 🔒 No compartimos tu información.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contacto">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4 id="marcaFoot"></h4>
+        <p style="color:var(--suave);max-width:320px" id="esloganFoot"></p>
+      </div>
+      <div><h4>Enlaces</h4>
+        <a href="#productos">Productos</a><a href="#como">Cómo pedir</a><a href="#registro">Regístrate</a>
+      </div>
+      <div><h4>Contacto</h4>
+        <a id="footWa" target="_blank">💬 WhatsApp</a>
+        <a id="footTel">📞 Llamar</a>
+        <a id="footIg" target="_blank">📷 Instagram</a>
+      </div>
+    </div>
+    <div class="copy">© <span id="anio"></span> <span id="marcaCopy"></span> · Chillán, Ñuble · Hecho con 🔥</div>
+  </div>
+</footer>
+
+<!-- ============ FLOTANTES ============ -->
+<div class="flot">
+  <a class="f-wa" id="flotWa" target="_blank" title="WhatsApp">💬</a>
+  <a class="f-call" id="flotCall" title="Llamar">📞</a>
+</div>
+
+<!-- ============ BARRA DE PEDIDO FIJA ============ -->
+<div class="barra">
+  <div class="wrap">
+    <div class="resumen">
+      <div class="cesto">🧺<span class="num" id="num">0</span></div>
+      <div class="tt">Total del pedido<b id="barraTotal"></b></div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="ver" onclick="abrir()">Ver pedido</button>
+      <button class="btn btn-wa" onclick="pedirWhatsApp()">💬 Pedir ahora</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL PEDIDO ============ -->
+<div class="veil" id="veil" onclick="cerrar()"></div>
+<div class="modal" id="modal">
+  <div class="top"><h3>🧾 Tu nota de venta</h3><button class="x" onclick="cerrar()">×</button></div>
+  <div class="lista" id="lista"><p class="vacio">Tu cesto está vacío.<br>Agrega productos 🔥</p></div>
+  <div class="bot">
+    <div class="tot">Total:<span id="modalTotal"></span></div>
+    <button class="btn btn-wa" onclick="pedirWhatsApp()">💬 Enviar pedido por WhatsApp</button>
+    <p class="mini">El vendedor confirma valores y coordina la entrega.</p>
+  </div>
+</div>
+
+<script>
+const $=(id)=>document.getElementById(id);
+const waLink=(t="")=>`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(t)}`;
+const fmt=(n)=>CONFIG.moneda+Number(n).toLocaleString("es-CL",{minimumFractionDigits:CONFIG.decimales||0,maximumFractionDigits:CONFIG.decimales||0});
+
+$("marcaNav").textContent=CONFIG.marca;
+$("heroEslogan").textContent=CONFIG.eslogan;
+$("marcaFoot").textContent=CONFIG.marca;
+$("esloganFoot").textContent=CONFIG.eslogan;
+$("marcaCopy").textContent=CONFIG.marca;
+$("anio").textContent="2026";
+$("heroWa").href=waLink("¡Hola! Quiero más información sobre sus productos 😊");
+$("footWa").href=waLink("¡Hola! Vengo desde su página web.");
+$("flotWa").href=waLink("¡Hola! Vengo desde su página web.");
+$("footTel").href="tel:"+CONFIG.telefono;
+$("flotCall").href="tel:"+CONFIG.telefono;
+if(CONFIG.instagram){$("footIg").href=CONFIG.instagram;}else{$("footIg").style.display="none";}
+
+const grid=$("grid");
+CONFIG.productos.forEach(p=>{
+  const el=document.createElement("div");
+  el.className="plato";
+  el.innerHTML=`
+    <div class="pic">${p.foto?`<img src="${p.foto}" alt="${p.nombre}">`:p.emoji}</div>
+    <div class="det">
+      <h3>${p.nombre}</h3>
+      <div class="d">${p.desc||""}</div>
+      <div class="fila"><span class="precio">${fmt(p.precio)}</span>
+      <button class="add" onclick="agregar(${p.id})" title="Agregar">+</button></div>
+    </div>`;
+  grid.appendChild(el);
+});
+
+let carrito={};
+function agregar(id){carrito[id]=(carrito[id]||0)+1;render();abrir();}
+function cambiar(id,d){carrito[id]=(carrito[id]||0)+d;if(carrito[id]<=0)delete carrito[id];render();}
+function quitar(id){delete carrito[id];render();}
+function totales(){let total=0,u=0;for(const id in carrito){const p=CONFIG.productos.find(x=>x.id==id);total+=p.precio*carrito[id];u+=carrito[id];}return{total,u};}
+
+function render(){
+  const ids=Object.keys(carrito);
+  $("lista").innerHTML = ids.length===0
+    ? `<p class="vacio">Tu cesto está vacío.<br>Agrega productos 🔥</p>`
+    : ids.map(id=>{const p=CONFIG.productos.find(x=>x.id==id);return `<div class="it">
+        <div class="em">${p.foto?`<img src="${p.foto}">`:p.emoji}</div>
+        <div class="inf"><b>${p.nombre}</b><small>${fmt(p.precio)} c/u</small></div>
+        <div class="ctrl"><button onclick="cambiar(${p.id},-1)">−</button><span>${carrito[id]}</span><button onclick="cambiar(${p.id},1)">+</button></div>
+        <button class="del" onclick="quitar(${p.id})">🗑️</button></div>`;}).join("");
+  const {total,u}=totales();
+  $("modalTotal").textContent=fmt(total);
+  $("barraTotal").textContent=fmt(total);
+  $("num").textContent=u;
+}
+function abrir(){$("modal").classList.add("on");$("veil").classList.add("on");}
+function cerrar(){$("modal").classList.remove("on");$("veil").classList.remove("on");}
+
+function pedirWhatsApp(){
+  const ids=Object.keys(carrito);
+  if(ids.length===0){alert("Tu cesto está vacío 🔥");return;}
+  let msg=`🧾 *NOTA DE VENTA* — ${CONFIG.marca}\n--------------------------------\n`;
+  ids.forEach(id=>{const p=CONFIG.productos.find(x=>x.id==id);msg+=`• ${carrito[id]} x ${p.nombre} — ${fmt(p.precio*carrito[id])}\n`;});
+  msg+=`--------------------------------\n*TOTAL: ${fmt(totales().total)}*\n\n📍 Mi nombre: \n📍 Dirección/entrega: \n\n_Quedo atento(a) para confirmar. ¡Gracias!_`;
+  window.open(waLink(msg),"_blank");
+}
+function enviarRegistro(e){
+  e.preventDefault();const f=e.target;
+  let msg=`📝 *NUEVO REGISTRO* — ${CONFIG.marca}\n--------------------------------\n👤 Nombre: ${f.nombre.value}\n📱 Teléfono: ${f.telefono.value}\n🏙️ Ciudad: ${f.ciudad.value||"-"}\n⭐ Interés: ${f.interes.value}\n`;
+  if(f.mensaje.value)msg+=`💬 Mensaje: ${f.mensaje.value}\n`;
+  window.open(waLink(msg),"_blank");f.reset();
+}
+render();
+</script>
+</body>
+</html>

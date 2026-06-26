@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Artesanías — Hecho a mano con amor</title>
+<meta name="description" content="Productos artesanales únicos hechos a mano. Pide por WhatsApp." />
+
+<!-- ============================================================= -->
+<!--  ⚙️  ZONA FÁCIL DE EDITAR                                      -->
+<!--  Cambia SOLO los valores entre comillas. No toques lo demás.  -->
+<!-- ============================================================= -->
+<script>
+const CONFIG = {
+  // 🏪 Nombre de tu marca / negocio
+  marca: "Cecinas Don Coloma de Chillán",
+
+  // 📝 Frase corta que describe tu producto (subtítulo del inicio)
+  eslogan: "Longanizas y cecinas artesanales ahumadas, con el sabor tradicional de Chillán.",
+
+  // 📱 Tu WhatsApp con código de país, SOLO números (Chile = 56 + 9 + número)
+  //    ⚠️ CAMBIA esto por TU número real
+  whatsapp: "56912345678",
+
+  // ☎️ Número para el botón de LLAMADA (puede ser el mismo)
+  telefono: "+56912345678",
+
+  // 💲 Símbolo de moneda (Chile: $ peso, sin decimales)
+  moneda: "$",
+  decimales: 0,   // 0 = pesos chilenos ($6.500) · 2 = con centavos ($6.500,00)
+
+  // 📸 INSTAGRAM / FACEBOOK (deja "" si no quieres mostrarlo)
+  instagram: "https://www.instagram.com/cecinasdoncolomadechillan/",
+  facebook: "",
+
+  // 🛍️ TUS PRODUCTOS — copia/pega un bloque para agregar más.
+  //    ⚠️ Precios de referencia: ajústalos a TUS valores reales.
+  //    emoji = imagen rápida (cambia por foto si quieres, ver instrucciones abajo)
+  productos: [
+    { id: 1, nombre: "Longaniza Ahumada Tradicional (1 kilo)", precio: 6500, emoji: "🌭", desc: "La clásica de Chillán, ahumada a leña." },
+    { id: 2, nombre: "Longaniza con Merkén (1 kilo)", precio: 6800, emoji: "🌶️", desc: "Con el toque picante del merkén." },
+    { id: 3, nombre: "Longaniza Ahumada (1/2 kilo)", precio: 3400, emoji: "🌭", desc: "Mismo sabor, en formato medio kilo." },
+    { id: 4, nombre: "Chorizo Parrillero (1 kilo)", precio: 6500, emoji: "🔥", desc: "Ideal para el asado del fin de semana." },
+    { id: 5, nombre: "Arrollado Huaso (1 kilo)", precio: 7900, emoji: "🍖", desc: "Receta tradicional, aliñado y cocido." },
+    { id: 6, nombre: "Prietas (1 kilo)", precio: 5500, emoji: "🩸", desc: "Suaves y bien condimentadas." },
+    { id: 7, nombre: "Queso de Cabeza (1/2 kilo)", precio: 4500, emoji: "🧆", desc: "Hecho a la antigua, lleno de sabor." },
+    { id: 8, nombre: "Costillar Ahumado (1 kilo)", precio: 9500, emoji: "🥩", desc: "Ahumado lento, listo para servir." },
+  ],
+};
+</script>
+<!-- ============================================================= -->
+
+<style>
+  :root{
+    --primario:#c2410c;      /* terracota */
+    --primario-osc:#9a3412;
+    --secundario:#0f766e;    /* verde jade */
+    --crema:#fdf6ec;
+    --tinta:#2b2118;
+    --suave:#7c6f64;
+    --blanco:#ffffff;
+    --sombra:0 10px 30px rgba(43,33,24,.12);
+    --radio:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+    color:var(--tinta);background:var(--crema);line-height:1.6;
+  }
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .contenedor{width:min(1100px,92%);margin-inline:auto}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:50;background:rgba(253,246,236,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid #eaddca;
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--primario-osc)}
+  .logo span{font-size:1.6rem}
+  .menu{display:flex;gap:26px;align-items:center}
+  .menu a{font-weight:600;color:var(--tinta);transition:.2s}
+  .menu a:hover{color:var(--primario)}
+  .btn-carrito{
+    position:relative;background:var(--primario);color:#fff;border:none;
+    padding:10px 16px;border-radius:999px;font-weight:700;cursor:pointer;font-size:.95rem;
+  }
+  .btn-carrito .conteo{
+    position:absolute;top:-8px;right:-8px;background:var(--secundario);color:#fff;
+    min-width:22px;height:22px;border-radius:50%;font-size:.75rem;display:grid;place-items:center;padding:0 4px;
+  }
+  .menu-toggle{display:none;background:none;border:none;font-size:1.6rem;cursor:pointer}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;text-align:center;padding:70px 0 80px;
+    background:
+      radial-gradient(1200px 400px at 50% -10%, #ffe6cf 0%, transparent 60%),
+      linear-gradient(180deg,#fdf6ec 0%, #fbeede 100%);
+  }
+  .hero .badge{
+    display:inline-block;background:#fff;border:1px solid #eaddca;color:var(--primario-osc);
+    padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem;margin-bottom:18px;box-shadow:var(--sombra)
+  }
+  .hero h1{font-size:clamp(2.1rem,5vw,3.4rem);color:var(--primario-osc);margin-bottom:14px}
+  .hero p{font-size:1.15rem;color:var(--suave);max-width:620px;margin:0 auto 28px}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:999px;
+    font-weight:700;font-size:1rem;cursor:pointer;border:none;transition:transform .15s, box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primario{background:var(--primario);color:#fff;box-shadow:var(--sombra)}
+  .btn-wa{background:#25D366;color:#fff;box-shadow:var(--sombra)}
+  .btn-ghost{background:#fff;color:var(--primario-osc);border:1px solid #eaddca}
+
+  .tiras{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+  .tira{display:flex;align-items:center;gap:10px;color:var(--suave);font-weight:600}
+  .tira b{color:var(--tinta)}
+
+  /* ---------- SECCIONES ---------- */
+  section{padding:64px 0}
+  .titulo{text-align:center;margin-bottom:42px}
+  .titulo h2{font-size:clamp(1.8rem,4vw,2.5rem);color:var(--primario-osc)}
+  .titulo p{color:var(--suave);margin-top:8px}
+
+  /* ---------- PRODUCTOS ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:24px}
+  .card{
+    background:#fff;border-radius:var(--radio);overflow:hidden;box-shadow:var(--sombra);
+    display:flex;flex-direction:column;transition:transform .2s, box-shadow .2s;border:1px solid #f0e4d2;
+  }
+  .card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(43,33,24,.18)}
+  .card .foto{
+    aspect-ratio:1;display:grid;place-items:center;font-size:4.5rem;
+    background:linear-gradient(135deg,#fff2e2,#ffe2cb);
+  }
+  .card .foto img{width:100%;height:100%;object-fit:cover}
+  .card .cuerpo{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .card h3{font-size:1.15rem}
+  .card .desc{color:var(--suave);font-size:.9rem;flex:1}
+  .card .precio{font-size:1.35rem;font-weight:800;color:var(--secundario)}
+  .card .agregar{
+    background:var(--primario);color:#fff;border:none;padding:11px;border-radius:12px;
+    font-weight:700;cursor:pointer;transition:.2s
+  }
+  .card .agregar:hover{background:var(--primario-osc)}
+
+  /* ---------- REGISTRO / FORM ---------- */
+  .panel{
+    background:#fff;border-radius:24px;box-shadow:var(--sombra);padding:38px;
+    border:1px solid #f0e4d2;max-width:620px;margin-inline:auto
+  }
+  .campo{margin-bottom:16px}
+  .campo label{display:block;font-weight:700;margin-bottom:6px;font-size:.95rem}
+  .campo input,.campo textarea,.campo select{
+    width:100%;padding:13px 14px;border:1.5px solid #e7d8c2;border-radius:12px;
+    font-size:1rem;font-family:inherit;background:#fffdf9;transition:.2s
+  }
+  .campo input:focus,.campo textarea:focus,.campo select:focus{
+    outline:none;border-color:var(--primario);box-shadow:0 0 0 3px #f8d6bf
+  }
+  .fila{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .form-nota{font-size:.85rem;color:var(--suave);text-align:center;margin-top:10px}
+
+  /* ---------- PASOS ---------- */
+  .pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:22px}
+  .paso{background:#fff;border-radius:var(--radio);padding:26px;text-align:center;box-shadow:var(--sombra);border:1px solid #f0e4d2}
+  .paso .num{width:46px;height:46px;border-radius:50%;background:var(--primario);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.2rem;margin:0 auto 14px}
+  .paso h3{margin-bottom:6px}
+  .paso p{color:var(--suave);font-size:.95rem}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--primario-osc);color:#ffe9d8;padding:48px 0 28px;margin-top:40px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px;margin-bottom:30px}
+  footer h4{color:#fff;margin-bottom:12px;font-family:inherit;font-size:1rem;text-transform:uppercase;letter-spacing:.5px}
+  footer a{color:#ffd9c2;display:block;margin-bottom:7px;transition:.2s}
+  footer a:hover{color:#fff}
+  .copy{text-align:center;border-top:1px solid #b4502f;padding-top:20px;font-size:.85rem;color:#ffcdb3}
+
+  /* ---------- BOTONES FLOTANTES ---------- */
+  .flot{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;flex-direction:column;gap:12px}
+  .flot a,.flot button{
+    width:58px;height:58px;border-radius:50%;display:grid;place-items:center;border:none;cursor:pointer;
+    box-shadow:0 8px 22px rgba(0,0,0,.25);color:#fff;font-size:1.5rem;transition:transform .15s
+  }
+  .flot a:hover,.flot button:hover{transform:scale(1.1)}
+  .f-wa{background:#25D366}
+  .f-call{background:var(--secundario)}
+
+  /* ---------- CARRITO (panel lateral) ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:90;opacity:0;visibility:hidden;transition:.25s}
+  .overlay.activo{opacity:1;visibility:visible}
+  .drawer{
+    position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:#fff;z-index:100;
+    transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(0,0,0,.2)
+  }
+  .drawer.activo{transform:translateX(0)}
+  .drawer-top{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid #eee;background:var(--crema)}
+  .drawer-top h3{color:var(--primario-osc)}
+  .cerrar{background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--suave)}
+  .items{flex:1;overflow-y:auto;padding:16px 20px}
+  .vacio{text-align:center;color:var(--suave);margin-top:40px}
+  .item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #f1e9dc}
+  .item .ico{font-size:1.8rem;width:46px;height:46px;display:grid;place-items:center;background:#fff2e2;border-radius:12px;flex-shrink:0}
+  .item .info{flex:1}
+  .item .info b{display:block;font-size:.95rem}
+  .item .info small{color:var(--secundario);font-weight:700}
+  .cant{display:flex;align-items:center;gap:8px}
+  .cant button{width:28px;height:28px;border-radius:8px;border:1px solid #e7d8c2;background:#fff;cursor:pointer;font-weight:800;font-size:1rem}
+  .cant span{min-width:22px;text-align:center;font-weight:700}
+  .quitar{background:none;border:none;color:#c2410c;cursor:pointer;font-size:1.1rem}
+  .drawer-bot{padding:18px 20px;border-top:1px solid #eee;background:var(--crema)}
+  .total{display:flex;justify-content:space-between;font-size:1.25rem;font-weight:800;margin-bottom:14px}
+  .total span{color:var(--secundario)}
+  .drawer-bot .btn-wa{width:100%;justify-content:center}
+  .mini-nota{font-size:.78rem;color:var(--suave);text-align:center;margin-top:10px}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:760px){
+    .menu{
+      position:absolute;top:100%;left:0;right:0;background:var(--crema);flex-direction:column;
+      padding:16px;gap:14px;border-bottom:1px solid #eaddca;display:none
+    }
+    .menu.abierto{display:flex}
+    .menu-toggle{display:block}
+    .fila{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr;text-align:center}
+    .foot-grid a{display:inline-block;margin:0 8px 7px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header>
+  <div class="contenedor nav">
+    <a href="#inicio" class="logo"><span>🌭</span><b id="marcaNav"></b></a>
+    <nav class="menu" id="menu">
+      <a href="#productos">Productos</a>
+      <a href="#como">Cómo comprar</a>
+      <a href="#registro">Regístrate</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn-carrito" onclick="abrirCarrito()">🛒 Carrito<span class="conteo" id="conteo">0</span></button>
+      <button class="menu-toggle" onclick="document.getElementById('menu').classList.toggle('abierto')">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio" style="padding-top:60px">
+  <div class="contenedor">
+    <span class="badge">🔥 Ahumadas a leña en Chillán</span>
+    <h1 id="heroTitulo"></h1>
+    <p id="heroEslogan"></p>
+    <div class="cta">
+      <a href="#productos" class="btn btn-primario">🛍️ Ver productos</a>
+      <a id="heroWa" class="btn btn-wa" target="_blank">💬 Pedir por WhatsApp</a>
+    </div>
+    <div class="tiras">
+      <div class="tira">🥩 <span><b>100%</b> artesanal</span></div>
+      <div class="tira">🚚 <span>Despacho en <b>Chillán</b></span></div>
+      <div class="tira">🔥 <span>Ahumado <b>a leña</b></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTOS ============ -->
+<section id="productos">
+  <div class="contenedor">
+    <div class="titulo">
+      <h2>Nuestros productos</h2>
+      <p>Elige tus favoritos, arma tu pedido y envíalo por WhatsApp en segundos.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- ============ CÓMO COMPRAR ============ -->
+<section id="como" style="background:#fbeede">
+  <div class="contenedor">
+    <div class="titulo">
+      <h2>¿Cómo comprar?</h2>
+      <p>Súper fácil, en 3 pasos.</p>
+    </div>
+    <div class="pasos">
+      <div class="paso"><div class="num">1</div><h3>Elige</h3><p>Agrega los productos que te gusten al carrito y elige cantidades.</p></div>
+      <div class="paso"><div class="num">2</div><h3>Envía</h3><p>Toca "Pedir por WhatsApp". Tu nota de venta se arma sola con el total.</p></div>
+      <div class="paso"><div class="num">3</div><h3>Confirma</h3><p>El vendedor revisa, ajusta valores si hace falta y coordina la entrega.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REGISTRO ============ -->
+<section id="registro">
+  <div class="contenedor">
+    <div class="titulo">
+      <h2>Regístrate</h2>
+      <p>Déjanos tus datos para ofertas, nuevos diseños y pedidos personalizados.</p>
+    </div>
+    <div class="panel">
+      <form id="formRegistro" onsubmit="enviarRegistro(event)">
+        <div class="fila">
+          <div class="campo"><label>Nombre completo *</label><input name="nombre" required placeholder="Tu nombre" /></div>
+          <div class="campo"><label>Teléfono / WhatsApp *</label><input name="telefono" required placeholder="09xxxxxxxx" /></div>
+        </div>
+        <div class="campo"><label>Ciudad</label><input name="ciudad" placeholder="Tu ciudad" /></div>
+        <div class="campo">
+          <label>¿Qué te interesa?</label>
+          <select name="interes">
+            <option>Comprar productos</option>
+            <option>Pedido personalizado</option>
+            <option>Vender / ser distribuidor</option>
+            <option>Solo recibir novedades</option>
+          </select>
+        </div>
+        <div class="campo"><label>Mensaje (opcional)</label><textarea name="mensaje" rows="3" placeholder="Cuéntanos qué buscas..."></textarea></div>
+        <button type="submit" class="btn btn-wa" style="width:100%;justify-content:center">📩 Enviar registro por WhatsApp</button>
+        <p class="form-nota">Al enviar, se abrirá WhatsApp con tus datos listos para mandar. 🔒 No compartimos tu información.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO / FOOTER ============ -->
+<footer id="contacto">
+  <div class="contenedor">
+    <div class="foot-grid">
+      <div>
+        <h4 id="marcaFoot"></h4>
+        <p style="color:#ffd9c2;max-width:320px" id="esloganFoot"></p>
+      </div>
+      <div>
+        <h4>Enlaces</h4>
+        <a href="#productos">Productos</a>
+        <a href="#como">Cómo comprar</a>
+        <a href="#registro">Regístrate</a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <a id="footWa" target="_blank">💬 WhatsApp</a>
+        <a id="footTel">📞 Llamar</a>
+        <a id="footIg" target="_blank">📷 Instagram</a>
+      </div>
+    </div>
+    <div class="copy">© <span id="anio"></span> <span id="marcaCopy"></span> · Hecho con 💖 · Página creada para vender fácil.</div>
+  </div>
+</footer>
+
+<!-- ============ BOTONES FLOTANTES ============ -->
+<div class="flot">
+  <a class="f-wa" id="flotWa" target="_blank" title="Escríbenos por WhatsApp">💬</a>
+  <a class="f-call" id="flotCall" title="Llámanos">📞</a>
+</div>
+
+<!-- ============ CARRITO ============ -->
+<div class="overlay" id="overlay" onclick="cerrarCarrito()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-top">
+    <h3>🛒 Tu pedido</h3>
+    <button class="cerrar" onclick="cerrarCarrito()">×</button>
+  </div>
+  <div class="items" id="items"><p class="vacio">Tu carrito está vacío.<br>Agrega productos para empezar 🛍️</p></div>
+  <div class="drawer-bot">
+    <div class="total">Total:<span id="totalTxt"></span></div>
+    <button class="btn btn-wa" onclick="pedirWhatsApp()">💬 Pedir por WhatsApp</button>
+    <p class="mini-nota">Se enviará tu nota de venta. El vendedor confirma valores y entrega.</p>
+  </div>
+</aside>
+
+<script>
+/* ---------- INICIALIZAR CONTENIDO DESDE CONFIG ---------- */
+const $ = (id)=>document.getElementById(id);
+const waLink = (texto="")=>`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(texto)}`;
+
+$("marcaNav").textContent   = CONFIG.marca;
+$("heroTitulo").textContent = CONFIG.marca;
+$("heroEslogan").textContent= CONFIG.eslogan;
+$("marcaFoot").textContent  = CONFIG.marca;
+$("esloganFoot").textContent= CONFIG.eslogan;
+$("marcaCopy").textContent  = CONFIG.marca;
+$("anio").textContent       = "2026";
+
+$("heroWa").href  = waLink("¡Hola! Quiero más información sobre sus productos 😊");
+$("footWa").href  = waLink("¡Hola! Vengo desde su página web.");
+$("flotWa").href  = waLink("¡Hola! Vengo desde su página web.");
+$("footTel").href = "tel:"+CONFIG.telefono;
+$("flotCall").href= "tel:"+CONFIG.telefono;
+if(CONFIG.instagram){ $("footIg").href = CONFIG.instagram; } else { $("footIg").style.display="none"; }
+
+/* ---------- PINTAR PRODUCTOS ---------- */
+const fmt = (n)=> CONFIG.moneda + Number(n).toLocaleString("es-CL", {minimumFractionDigits:CONFIG.decimales||0, maximumFractionDigits:CONFIG.decimales||0});
+const grid = $("grid");
+CONFIG.productos.forEach(p=>{
+  const card = document.createElement("div");
+  card.className="card";
+  card.innerHTML = `
+    <div class="foto">${p.foto ? `<img src="${p.foto}" alt="${p.nombre}">` : p.emoji}</div>
+    <div class="cuerpo">
+      <h3>${p.nombre}</h3>
+      <p class="desc">${p.desc||""}</p>
+      <div class="precio">${fmt(p.precio)}</div>
+      <button class="agregar" onclick="agregar(${p.id})">➕ Agregar al pedido</button>
+    </div>`;
+  grid.appendChild(card);
+});
+
+/* ---------- LÓGICA DEL CARRITO ---------- */
+let carrito = {}; // {id: cantidad}
+
+function agregar(id){
+  carrito[id] = (carrito[id]||0)+1;
+  render();
+  abrirCarrito();
+}
+function cambiar(id, delta){
+  carrito[id] = (carrito[id]||0)+delta;
+  if(carrito[id]<=0) delete carrito[id];
+  render();
+}
+function quitar(id){ delete carrito[id]; render(); }
+
+function totales(){
+  let total=0, unidades=0;
+  for(const id in carrito){
+    const p = CONFIG.productos.find(x=>x.id==id);
+    total += p.precio*carrito[id];
+    unidades += carrito[id];
+  }
+  return {total, unidades};
+}
+
+function render(){
+  const cont = $("items");
+  const ids = Object.keys(carrito);
+  if(ids.length===0){
+    cont.innerHTML = `<p class="vacio">Tu carrito está vacío.<br>Agrega productos para empezar 🛍️</p>`;
+  } else {
+    cont.innerHTML = ids.map(id=>{
+      const p = CONFIG.productos.find(x=>x.id==id);
+      return `<div class="item">
+        <div class="ico">${p.foto?`<img src="${p.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:12px">`:p.emoji}</div>
+        <div class="info"><b>${p.nombre}</b><small>${fmt(p.precio)} c/u</small></div>
+        <div class="cant">
+          <button onclick="cambiar(${p.id},-1)">−</button>
+          <span>${carrito[id]}</span>
+          <button onclick="cambiar(${p.id},1)">+</button>
+        </div>
+        <button class="quitar" onclick="quitar(${p.id})" title="Quitar">🗑️</button>
+      </div>`;
+    }).join("");
+  }
+  const {total, unidades} = totales();
+  $("totalTxt").textContent = fmt(total);
+  $("conteo").textContent = unidades;
+}
+
+function abrirCarrito(){ $("drawer").classList.add("activo"); $("overlay").classList.add("activo"); }
+function cerrarCarrito(){ $("drawer").classList.remove("activo"); $("overlay").classList.remove("activo"); }
+
+/* ---------- ARMAR NOTA DE VENTA Y ENVIAR A WHATSAPP ---------- */
+function pedirWhatsApp(){
+  const ids = Object.keys(carrito);
+  if(ids.length===0){ alert("Tu carrito está vacío 🛍️"); return; }
+  let msg = `🧾 *NOTA DE VENTA* — ${CONFIG.marca}\n`;
+  msg += `--------------------------------\n`;
+  ids.forEach(id=>{
+    const p = CONFIG.productos.find(x=>x.id==id);
+    const sub = p.precio*carrito[id];
+    msg += `• ${carrito[id]} x ${p.nombre} — ${fmt(sub)}\n`;
+  });
+  const {total} = totales();
+  msg += `--------------------------------\n`;
+  msg += `*TOTAL: ${fmt(total)}*\n\n`;
+  msg += `📍 Mi nombre: \n📍 Dirección/entrega: \n\n`;
+  msg += `_Quedo atento(a) para confirmar el pedido. ¡Gracias!_`;
+  window.open(waLink(msg), "_blank");
+}
+
+/* ---------- FORMULARIO DE REGISTRO ---------- */
+function enviarRegistro(e){
+  e.preventDefault();
+  const f = e.target;
+  let msg = `📝 *NUEVO REGISTRO* — ${CONFIG.marca}\n`;
+  msg += `--------------------------------\n`;
+  msg += `👤 Nombre: ${f.nombre.value}\n`;
+  msg += `📱 Teléfono: ${f.telefono.value}\n`;
+  msg += `🏙️ Ciudad: ${f.ciudad.value||"-"}\n`;
+  msg += `⭐ Interés: ${f.interes.value}\n`;
+  if(f.mensaje.value) msg += `💬 Mensaje: ${f.mensaje.value}\n`;
+  window.open(waLink(msg), "_blank");
+  f.reset();
+}
+
+render();
+</script>
+</body>
+</html>
