@@ -87,19 +87,22 @@ const CONFIG = {
   .marquesina{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;margin-top:46px;color:var(--suave);font-weight:600}
   .marquesina b{color:var(--crema)}
 
-  /* ---------- LLUVIA DE LONGANIZAS (fondo del inicio) ---------- */
-  .hero .wrap{position:relative;z-index:2}            /* el texto siempre por encima */
-  .lluvia{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  /* ---------- LLUVIA DE LONGANIZAS (toda la página, sutil) ---------- */
+  .hero .wrap{position:relative;z-index:2}             /* el texto del hero por encima */
+  .lluvia{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}  /* cubre toda la página, no tapa nav/botones/modal */
   .lluvia .gota{
-    position:absolute;top:-12%;display:block;line-height:1;
-    opacity:.5;will-change:transform;
-    filter:drop-shadow(0 4px 6px rgba(0,0,0,.45));
-    animation:caer linear infinite;
+    position:absolute;top:0;left:0;display:block;line-height:1;
+    --sway:26px;                                       /* cuánto se balancea de lado a lado */
+    opacity:.25;will-change:transform;
+    filter:drop-shadow(0 3px 5px rgba(0,0,0,.4));
+    animation:caer ease-in-out infinite;
   }
   @keyframes caer{
-    0%  {transform:translateY(-12vh) translateX(0)      rotate(0deg)}
-    50% {                            transform:translateY(50vh) translateX(14px) rotate(180deg)}
-    100%{transform:translateY(125vh) translateX(0)      rotate(360deg)}
+    0%  {transform:translateY(-12vh) translateX(calc(var(--sway) * -1)) rotate(-8deg)}
+    25% {transform:translateY(25vh)  translateX(var(--sway))            rotate(8deg)}
+    50% {transform:translateY(55vh)  translateX(calc(var(--sway) * -1)) rotate(-8deg)}
+    75% {transform:translateY(83vh)  translateX(var(--sway))            rotate(8deg)}
+    100%{transform:translateY(112vh) translateX(calc(var(--sway) * -1)) rotate(-8deg)}
   }
   @media(prefers-reduced-motion:reduce){.lluvia{display:none}}
 
@@ -208,6 +211,9 @@ const CONFIG = {
 </head>
 <body>
 
+<!-- ============ LLUVIA DE LONGANIZAS (toda la página) ============ -->
+<div class="lluvia" id="lluvia" aria-hidden="true"></div>
+
 <!-- ============ NAV ============ -->
 <header>
   <div class="wrap nav">
@@ -224,7 +230,6 @@ const CONFIG = {
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="inicio">
-  <div class="lluvia" id="lluvia" aria-hidden="true"></div>
   <div class="wrap">
     <span class="kicker">🔥 Ahumadas a leña · Chillán</span>
     <h1>El sabor que <em>todos piden</em></h1>
@@ -422,16 +427,17 @@ render();
   const cont=$("lluvia");
   if(!cont)return;
   if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-  const N = window.innerWidth < 600 ? 14 : 24;   // menos en celular
+  const N = window.innerWidth < 600 ? 14 : 22;   // menos en celular
   for(let i=0;i<N;i++){
     const g=document.createElement("span");
     g.className="gota";
     g.textContent="🌭";
     g.style.left            = (Math.random()*100).toFixed(2)+"%";
-    g.style.fontSize        = (1.0 + Math.random()*1.7).toFixed(2)+"rem";  // mini a mediana
-    g.style.opacity         = (0.30 + Math.random()*0.35).toFixed(2);
-    g.style.animationDuration= (6 + Math.random()*7).toFixed(2)+"s";       // velocidades variadas
-    g.style.animationDelay  = (-Math.random()*13).toFixed(2)+"s";          // ya cayendo al cargar
+    g.style.fontSize        = (0.95 + Math.random()*1.5).toFixed(2)+"rem";   // mini a mediana
+    g.style.opacity         = (0.20 + Math.random()*0.22).toFixed(2);        // sutil, visible en toda la página
+    g.style.setProperty("--sway",(16 + Math.random()*30).toFixed(0)+"px");   // balanceo variado
+    g.style.animationDuration= (9 + Math.random()*6).toFixed(2)+"s";         // caída media
+    g.style.animationDelay  = (-Math.random()*15).toFixed(2)+"s";            // ya cayendo al cargar
     cont.appendChild(g);
   }
 })();
