@@ -74,6 +74,10 @@ const CONFIG = {
                radial-gradient(700px 400px at 80% 120%, rgba(224,165,54,.18), transparent 60%),
                var(--fondo);
   }
+  .emblema{display:block;width:min(230px,60%);height:auto;margin:0 auto 14px;
+    filter:drop-shadow(0 12px 20px rgba(0,0,0,.55)) drop-shadow(0 0 12px rgba(226,84,31,.3));
+    animation:bobeo 4.5s ease-in-out infinite}
+  @keyframes bobeo{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-9px) rotate(1.5deg)}}
   .hero .kicker{display:inline-flex;align-items:center;gap:8px;color:var(--oro);font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:.78rem;margin-bottom:18px}
   .hero h1{font-size:clamp(2.4rem,6vw,4.2rem);margin-bottom:16px}
   .hero h1 em{color:var(--oro);font-style:normal}
@@ -92,22 +96,12 @@ const CONFIG = {
   .lluvia{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}  /* cubre toda la página, no tapa nav/botones/modal */
   .lluvia .gota{
     position:absolute;top:0;left:0;display:block;
-    width:30px;height:13px;                             /* mini longaniza (se varía por JS) */
+    width:34px;height:22px;                             /* mini longaniza curvada (se varía por JS) */
     --sway:26px;                                        /* cuánto se balancea de lado a lado */
-    border-radius:999px;
-    background:linear-gradient(170deg,#d06a22 0%,#a8481b 45%,#7a3212 78%,#54220d 100%);
-    box-shadow:
-      inset 0 1.5px 1.5px rgba(255,221,170,.55),        /* brillo arriba */
-      inset 0 -2px 2px rgba(0,0,0,.4),                  /* sombra abajo */
-      0 0 8px rgba(226,84,31,.5),                        /* resplandor cálido */
-      0 3px 5px rgba(0,0,0,.45);
-    opacity:.9;will-change:transform;
+    background-repeat:no-repeat;background-position:center;background-size:contain;
+    filter:drop-shadow(0 2px 3px rgba(0,0,0,.5)) drop-shadow(0 0 5px rgba(226,84,31,.45));
+    opacity:.92;will-change:transform;
     animation:caer 12s ease-in-out infinite;           /* la duración real la fija el JS por longaniza */
-  }
-  .lluvia .gota::after{                                  /* amarradito de un extremo */
-    content:"";position:absolute;right:8%;top:50%;width:8%;height:120%;
-    transform:translateY(-50%);border-radius:2px;
-    background:rgba(60,24,8,.55);
   }
   @keyframes caer{
     0%  {transform:translateY(-12vh) translateX(calc(var(--sway) * -1)) rotate(-8deg)}
@@ -242,6 +236,31 @@ const CONFIG = {
 <!-- ============ HERO ============ -->
 <section class="hero" id="inicio">
   <div class="wrap">
+    <svg class="emblema" viewBox="0 0 260 168" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Longaniza con tenedor clavado">
+      <defs>
+        <linearGradient id="emLong" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ef8a3a"/><stop offset=".5" stop-color="#aa491b"/><stop offset="1" stop-color="#5c280e"/>
+        </linearGradient>
+        <linearGradient id="emFork" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f6f4ef"/><stop offset=".5" stop-color="#cdcbd4"/><stop offset="1" stop-color="#8f8d99"/>
+        </linearGradient>
+      </defs>
+      <!-- longaniza en arco -->
+      <path d="M42,144 C42,44 218,44 218,144" fill="none" stroke="#34160a" stroke-width="42" stroke-linecap="round"/>
+      <path d="M42,144 C42,44 218,44 218,144" fill="none" stroke="url(#emLong)" stroke-width="34" stroke-linecap="round"/>
+      <path d="M53,132 C56,62 204,62 207,132" fill="none" stroke="rgba(255,226,184,.5)" stroke-width="6" stroke-linecap="round"/>
+      <!-- amarras de la longaniza -->
+      <path d="M92,56 l-8,17 M168,56 l8,17" stroke="#34160a" stroke-width="6" stroke-linecap="round" opacity=".55"/>
+      <!-- tenedor clavado al centro -->
+      <g stroke="#6f6d79" stroke-width="1.2">
+        <rect x="123" y="6" width="14" height="54" rx="7" fill="url(#emFork)"/>
+        <path d="M105,56 h50 v3 a4,4 0 0 1 -4,4 H109 a4,4 0 0 1 -4,-4 z" fill="url(#emFork)"/>
+        <rect x="106" y="62" width="6" height="24" rx="3" fill="url(#emFork)"/>
+        <rect x="118" y="62" width="6" height="28" rx="3" fill="url(#emFork)"/>
+        <rect x="136" y="62" width="6" height="28" rx="3" fill="url(#emFork)"/>
+        <rect x="148" y="62" width="6" height="24" rx="3" fill="url(#emFork)"/>
+      </g>
+    </svg>
     <span class="kicker">🔥 Ahumadas a leña · Chillán</span>
     <h1>El sabor que <em>todos piden</em></h1>
     <p id="heroEslogan"></p>
@@ -437,15 +456,19 @@ render();
 (function lluviaLonganizas(){
   const cont=$("lluvia");
   if(!cont)return;
+  // mini longaniza curvada (forma de arco) dibujada en SVG
+  const svgLonga = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 44"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8843a"/><stop offset=".55" stop-color="#a8481b"/><stop offset="1" stop-color="#5c280e"/></linearGradient></defs><path d="M10,34 C10,8 54,8 54,34" fill="none" stroke="#3a1809" stroke-width="18" stroke-linecap="round"/><path d="M10,34 C10,8 54,8 54,34" fill="none" stroke="url(#g)" stroke-width="13" stroke-linecap="round"/><path d="M17,27 C19,15 45,15 47,27" fill="none" stroke="rgba(255,226,184,.55)" stroke-width="3" stroke-linecap="round"/></svg>`;
+  const uriLonga = "url(\"data:image/svg+xml;utf8," + encodeURIComponent(svgLonga) + "\")";
   const N = window.innerWidth < 600 ? 16 : 26;   // menos en celular
   for(let i=0;i<N;i++){
     const g=document.createElement("span");
     g.className="gota";
-    const w = 22 + Math.random()*26;                                        // 22-48px de largo
+    const w = 24 + Math.random()*28;                                        // 24-52px de largo
+    g.style.backgroundImage = uriLonga;
     g.style.left            = (Math.random()*100).toFixed(2)+"%";
     g.style.width           = w.toFixed(1)+"px";
-    g.style.height          = (w*0.42).toFixed(1)+"px";                      // forma alargada
-    g.style.opacity         = (0.7 + Math.random()*0.3).toFixed(2);         // bien visible
+    g.style.height          = (w*0.66).toFixed(1)+"px";                      // proporción del arco
+    g.style.opacity         = (0.78 + Math.random()*0.22).toFixed(2);       // bien visible
     g.style.setProperty("--sway",(16 + Math.random()*30).toFixed(0)+"px");   // balanceo variado
     g.style.animationDuration= (9 + Math.random()*6).toFixed(2)+"s";         // caída media
     g.style.animationDelay  = (-Math.random()*15).toFixed(2)+"s";            // ya cayendo al cargar
