@@ -95,7 +95,7 @@ const CONFIG = {
     --sway:26px;                                       /* cuánto se balancea de lado a lado */
     opacity:.25;will-change:transform;
     filter:drop-shadow(0 3px 5px rgba(0,0,0,.4));
-    animation:caer ease-in-out infinite;
+    animation:caer ease-in-out infinite !important;
   }
   @keyframes caer{
     0%  {transform:translateY(-12vh) translateX(calc(var(--sway) * -1)) rotate(-8deg)}
@@ -104,7 +104,6 @@ const CONFIG = {
     75% {transform:translateY(83vh)  translateX(var(--sway))            rotate(8deg)}
     100%{transform:translateY(112vh) translateX(calc(var(--sway) * -1)) rotate(-8deg)}
   }
-  @media(prefers-reduced-motion:reduce){.lluvia{display:none}}
 
   /* ---------- SECCIONES ---------- */
   section{padding:70px 0}
@@ -426,7 +425,6 @@ render();
 (function lluviaLonganizas(){
   const cont=$("lluvia");
   if(!cont)return;
-  if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   const N = window.innerWidth < 600 ? 14 : 22;   // menos en celular
   for(let i=0;i<N;i++){
     const g=document.createElement("span");
