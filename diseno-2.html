@@ -87,6 +87,22 @@ const CONFIG = {
   .marquesina{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;margin-top:46px;color:var(--suave);font-weight:600}
   .marquesina b{color:var(--crema)}
 
+  /* ---------- LLUVIA DE LONGANIZAS (fondo del inicio) ---------- */
+  .hero .wrap{position:relative;z-index:2}            /* el texto siempre por encima */
+  .lluvia{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .lluvia .gota{
+    position:absolute;top:-12%;display:block;line-height:1;
+    opacity:.5;will-change:transform;
+    filter:drop-shadow(0 4px 6px rgba(0,0,0,.45));
+    animation:caer linear infinite;
+  }
+  @keyframes caer{
+    0%  {transform:translateY(-12vh) translateX(0)      rotate(0deg)}
+    50% {                            transform:translateY(50vh) translateX(14px) rotate(180deg)}
+    100%{transform:translateY(125vh) translateX(0)      rotate(360deg)}
+  }
+  @media(prefers-reduced-motion:reduce){.lluvia{display:none}}
+
   /* ---------- SECCIONES ---------- */
   section{padding:70px 0}
   .cab{text-align:center;margin-bottom:46px}
@@ -208,6 +224,7 @@ const CONFIG = {
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="inicio">
+  <div class="lluvia" id="lluvia" aria-hidden="true"></div>
   <div class="wrap">
     <span class="kicker">🔥 Ahumadas a leña · Chillán</span>
     <h1>El sabor que <em>todos piden</em></h1>
@@ -399,6 +416,25 @@ function enviarRegistro(e){
   window.open(waLink(msg),"_blank");f.reset();
 }
 render();
+
+/* ----- Lluvia de mini longanizas en el inicio ----- */
+(function lluviaLonganizas(){
+  const cont=$("lluvia");
+  if(!cont)return;
+  if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const N = window.innerWidth < 600 ? 14 : 24;   // menos en celular
+  for(let i=0;i<N;i++){
+    const g=document.createElement("span");
+    g.className="gota";
+    g.textContent="🌭";
+    g.style.left            = (Math.random()*100).toFixed(2)+"%";
+    g.style.fontSize        = (1.0 + Math.random()*1.7).toFixed(2)+"rem";  // mini a mediana
+    g.style.opacity         = (0.30 + Math.random()*0.35).toFixed(2);
+    g.style.animationDuration= (6 + Math.random()*7).toFixed(2)+"s";       // velocidades variadas
+    g.style.animationDelay  = (-Math.random()*13).toFixed(2)+"s";          // ya cayendo al cargar
+    cont.appendChild(g);
+  }
+})();
 </script>
 </body>
 </html>
